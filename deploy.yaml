@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queue-consumer
+  labels:
+    app: queue-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queue-consumer
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: queue-consumer
+    spec:
+      containers:
+      - name: queue-consumer
+        image: IMAGE-BUILD-WITH-DOCKERFILE-PROVIDED
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 300m
+            memory: 100Mi
+          limits:
+            cpu: 1000m
+            memory: 1000Mi

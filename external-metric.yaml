@@ -1,0 +1,22 @@
+apiVersion: metrics.aws/v1alpha1
+kind: ExternalMetric
+metadata:
+  name: rabbitmq-length
+spec:
+  name: rabbitmq-length
+  resource:
+    resource: "deployment"
+  queries:
+    - id: rabbitmq
+      metricStat:
+        metric:
+          namespace: "AWS/AmazonMQ"
+          metricName: "MessageCount"
+          dimensions:
+            - name: Broker
+              value: "NAME OF THE RABBITMQ BROKER"
+        period: 10
+        stat: Maximum
+        unit: Count
+      returnData: true
+
