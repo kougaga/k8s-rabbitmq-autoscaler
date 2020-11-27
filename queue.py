@@ -12,11 +12,12 @@ class RabbitMQ:
     def __init__(self,
                  account,
                  password,
+                 protocol,
                  url,
                  vhost):
 
         self.params = pika.URLParameters(
-            f"amqps://{account}:{password}@{url}/{vhost}"
+            f"{protocol}://{account}:{password}@{url}/{vhost}"
         )
 
     @classmethod
@@ -24,6 +25,7 @@ class RabbitMQ:
         return RabbitMQ(
             account=d.get("ACCOUNT", "asd"),
             password=d.get("PASSWORD"),
+            protocol=d.get("PROTOCOL"),
             url=d.get("QUEUE_URL"),
             vhost=d.get("VIRTUAL_HOST")
         )
